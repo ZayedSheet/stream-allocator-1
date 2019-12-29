@@ -1,0 +1,190 @@
+\documentclass[12pt]{article}
+
+\usepackage{graphicx}
+\usepackage{paralist}
+\usepackage{listings}
+\usepackage{booktabs}
+
+\oddsidemargin 0mm
+\evensidemargin 0mm
+\textwidth 160mm
+\textheight 200mm
+
+\pagestyle {plain}
+\pagenumbering{arabic}
+
+\newcounter{stepnum}
+
+\title{Assignment 2 Solution}
+\author{Zayed Sheet}
+\date{\today}
+
+\begin {document}
+
+\maketitle
+
+The following document is a thorough report on 2AA4 Assignment 2. The purpose of this software design exercise is to read from a formal design specification to produce a python program. This program uses several modules to take an input of students in first year engineering and place them in one of their desired programs of choice depending on whether they meet the requirements for that program.
+
+\section{Testing of the Original Program}
+
+When creating my test cases I didn't run into any errors, everything worked as expected and all test cases passed for my program. My main concern when creating the test cases was to check whether the code adhered to the project specifications. The first thing I did was try to cover all the basic cases that essentially assess the correctness of the code. These basic cases would have expected inputs and expected outputs to test the basic functionality of the code. They would also check for exceptions required in the project spec. Simply to further test the code I then added some cases that test the robustness of the program by essentially trying to break the code with unexpected inputs.
+For example, cases where the inputs would contain empty lists, empty tuples, etc. My test cases go as follows:
+
+\renewcommand{\labelenumii}{\Roman{enumii}}
+\renewcommand{\labelenumi}{\Alph{enumi}}
+\begin{enumerate}[A.]
+\item \textbf{TestSeqADT}
+
+\begin{enumerate}[i)]
+\item test\_next\\
+This case tests for the correctness of the next method of module SeqADT.
+\item test\_empty\_next\\
+This case tests for robustness of the next method. It test what will happen if the next method is used on an empty list in SeqADT.
+\item test\_start\\
+This case tests for correctness of the start method of SeqADT.
+\item test\_end \& test\_end\_2\\
+These two test cases are paired together to test the correctness of the end method of SeqADT.
+\end{enumerate}
+
+\item \textbf{TestDCapALst}
+\begin{enumerate}[i)]
+  \item test\_add\\ This case tests for the correctness of the add method in module DCapALst.
+  \item test\_add\_2\\ This case tests that an exception is raised when adding a department that already exists using the add method of DCapALst.
+  \item test\_remove\\ This case tests for the correctness of the remove method in DCapALst.
+  \item test\_remove\_2\\ This case tests that an exception is raised when removing a department that already exists in the remove method of DCapALst.
+  \item test\_elm \& test\_elm\_2\\ These two test cases are paired together to test the correctness of the elm method of DCapALst.
+  \item test\_capacity\\ This case tests for the correctness of the capacity method in DCapALst.
+  \item test\_capacity\_2\\ This case tests that an exception is raised when checking the capacity of a department that doesn't exist.
+\end{enumerate}
+  \item \textbf{TestSALst}
+    \begin{enumerate}[i)]
+      \item test\_add\\ This case tests for the correctness of the add method in module SALst.
+      \item test\_add\_2\\ This case tests that an exception is raised if an element that already exists is added to SALst.
+      \item test\_remove\\ This case tests for correctness of the remove method in module SALst.
+      \item test\_remove\_2\\ This case tests that an exception is raised if an element that doesn't exist is removed from SALst.
+      \item test\_elm \$ test\_elm\_2\\ These test cases are paired together to test the correctness of the elm method of SALst.
+      \item test\_info\\ This test case tests for correctness of the info method in SALst.
+      \item test\_info\_2\\ This case tests than an exception is raised if this method is used with an element that doesn't exist in SALst.
+      \item test\_sort \& test\_sort\_2\\ These test for the full correctness of the sort method in SALst using different lambda functions as inputs.
+      \item test\_sort\_3\\ This case tests the robustness of the sort method. SALst is empty in this test case and the output should also be empty.
+      \item test\_average\\ This case tests that an exception is raised when no elements in the list contain the given GenT value.
+      \item test\_average\_2 This case tests for the correctness of the average method.
+      \item test\_allocate\\ This case tests for the correctness of the allocate method. In this test cae SAlst contains several different students all with unique attributes.
+      \item test\_allocate\_2\\ This case tests for robustness of the allocate method. SALst is empty in this test case and the output should be empty departments for all departments in AAlst.
+    \end{enumerate}
+\end{enumerate}
+
+
+\section{Results of Testing Partner's Code}
+
+After running my partner's code with test_All.py, 24 out of 28 test cases passed. The four that failed include TestSALst.test\_remove, TestSALst.test\_add, TestDCapALst.test\_remove and TestDCapALst.test\_add.
+Although 4 test cases failed after reviewing my partner's code I found that his code still works and correctly follows the specifications. The reason some of the test cases failed are mostly
+due to different data type implementations. The reason TestDCapALst.test\_remove and TestDCapALst.test\_add failed is because my partner used named tuples rather than ordinary tuples. He also used sets
+rather than lists. The reason TestSALst.test\_remove and TestSALst.test\_add failed is because he used dictionaries rather than lists for SALst.s.\\
+I learned a few things after testing and reviewing my partners code. First I learned to make some of my test cases more specific in order to more easily target where the error is if one does occur.
+I also learned several better ways of implementing some of the solutions to the project specifications. For example I really liked my partner's idea of using named tuples rather than ordinary tuples for the
+elements in DCapALst. This provides additional robustness for the program.
+
+\section{Critique of Given Design Specification}
+
+What I liked about the formal design specification is that you don't have to think about whether what you're implementing is correct or not, because
+as long as it follows the specifications than you don't need to worry. However what I dislike is that I found the formal design specifications to be harder to read,
+and it didn't allow for much creativity or flexibility for the person coding it. For those reasons a project using formal specifications provided can be quite boring to code.\\
+The only thing I would change about the design would be to use inheritance where applicable. Some of the classes contain nearly identical methods which felt really repetative to recode.
+
+\section{Answers}
+
+\begin{enumerate}[A)]
+
+\item The advantages of using a formal specification is that there is no misinterpretation between the coder and the person assigning the project. What you see is what you must code. On the other hand
+      natural language specifications can cause misinterpretation and may require the programmer to make several assumptions when coding the project.\\
+      One of the main disadvantages to formal specifications is that it doesn't allow for much creativity or flexibility for the programmer. It's also much more difficult to read as opposed to natural language, and
+      if the programmer doesn't have a strong grasp of discrete mathematics than he or she may read the specifications incorrectly.
+
+\item I would modify the read module specification to specify that the gpa must be between 0 and 12 otherwise an exception is raised. Based off our assumptions the gpa is always the fifth item
+      in the student's attributes so it wouldn't be too hard to implement this. If we add the exception to the read module then no changes will be necessary to any of our record types because
+      by the time any information is allocated the gpa would be guaranteed to be between 0 and 12.
+
+\item Because DCapALst and SALst contain nearly identical methods than we could use inheritance to inherit all the methods from one class to another.
+      This would mean less code is required overall which is easier for the programmer to code and also makes the program easier to read.
+
+\item In A2 the average and sort functions are a lot more general because you can sort them based off the input parameters. The input to both of these methods is a lambda function and therefore we can
+      generalize what we want to find the average for or what we want to sort. For example we could now use sort to remove everyone with free choice or everyone with below a 4.0 gpa, or both, or neither. We can
+      also find the average of any group of students we'd like based off any attribute (doesn't necessarily have to be gender). The use of the SeqADT data type may also help to make things more geneeral because it can be used for any list.
+
+\item A major advantage to using SeqADT as opposed to a regular list is that it makes it a lot easier to read, code and understand your program because the way its structured is closely related to how people think. Its simply
+      a lot easier to read "while not choices.end" as opposed to "for i in range(list.length)" or easier to read "choices.next" as opposed to "i++".
+
+\item Enums are useful for defining immutable, related sets of constant values. They're especially useful for strings which can be easily confused based on spelling, capitalization, casing etc.
+      Making a string an enum also makes it more human readable. Lastly, enums support iteration which can also be beneficial (for example if you want to iterate over all your departments which I have done in my code).
+      The reason we don't make MacIDs Enums is because MacIDs are very unique and therefore can't be represented by Enums. There's simply too many to represent them all and they're simply too unique.
+
+\end{enumerate}
+
+\newpage
+
+\lstset{language=Python, basicstyle=\tiny, breaklines=true, showspaces=false,
+  showstringspaces=false, breakatwhitespace=true}
+%\lstset{language=C,linewidth=.94\textwidth,xleftmargin=1.1cm}
+
+\def\thesection{\Alph{section}}
+
+\section{Code for StdntAllocTypes.py}
+
+\noindent \lstinputlisting{../src/StdntAllocTypes.py}
+
+\newpage
+
+\section{Code for SeqADT.py}
+
+\noindent \lstinputlisting{../src/SeqADT.py}
+
+\newpage
+
+\section{Code for DCapALst.py}
+
+\noindent \lstinputlisting{../src/DCapALst.py}
+
+\newpage
+
+\section{Code for AALst.py}
+
+\noindent \lstinputlisting{../src/AALst.py}
+
+\newpage
+
+\section{Code for SALst.py}
+
+\noindent \lstinputlisting{../src/SALst.py}
+
+\newpage
+
+\section{Code for Read.py}
+
+\noindent \lstinputlisting{../src/Read.py}
+
+\newpage
+
+\section{Code for test\_All.py}
+
+\noindent \lstinputlisting{../src/test_All.py}
+
+\newpage
+
+\section{Code for Partner's SeqADT.py}
+
+\noindent \lstinputlisting{../partner/SeqADT.py}
+
+\newpage
+
+\section{Code for Partner's DCapALst.py}
+
+\noindent \lstinputlisting{../partner/DCapALst.py}
+
+\newpage
+
+\section{Code for Partner's SALst.py}
+
+\noindent \lstinputlisting{../partner/SALst.py}
+
+\end {document}
